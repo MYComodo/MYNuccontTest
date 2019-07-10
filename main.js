@@ -19,31 +19,38 @@ const server = http.createServer((req,res)=>{
 
 server.listen(port,hostname,()=> {
 	
-console.log('Server runs at : https//${hostname}:${port}/');
+//console.log('Server runs at : https//${hostname}:${port}/');
 });
 
 //console.log(textFile)
 
 
 class DataModel{
-	 constructor(description,classifier,speningBalance,debit,credit,finalBalance,paarent){
-		 this.description = description;
+	 constructor(classifier,description,speningBalance,debit,credit,finalBalance,paarent){
 		 this.classifier = classifier;
+		 this.description = description;
 		 this.speningBalance = speningBalance;
 		 this.debit = debit;
 		 this.credit = credit;
 		 this.finalBalance = finalBalance;
-		 this.paarent = paarent;
+		 this.paarent = (paarent % 100000 == 0 ? "There is no parent classifier" : classifier);
 	 }
-	
 }
 
-const outData = new Map();
+var outData = new Map();//output array
+var data = new DataModel();//Object that carries data
 
-var textWords = textFile.split('  ');
+ 
 
-for(wrd in textWords){
+var Lines = textFile.match(/[^\r\n]+/g);
+
+for(var i = 0; i< Lines.length; i++){
 	
-}
+	var words = Lines[i].split("  ");
+	
+	data = new DataModel(words[0],words[1],words[2],words[3],words[4],words[5],words[0]);
+	outData.set(data);
+}; 
 
-console.log(textWords);
+console.log(outData);
+

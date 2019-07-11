@@ -1,5 +1,5 @@
 const fs = require('fs');
-const mains = require('./main.js');
+const transformer = require('./transformer.js');
 var textFile = fs.readFileSync('InputData.txt','utf8');
 
-console.log(mains.DataTransform(textFile));
+console.log(transformer.DataTransform(textFile));
